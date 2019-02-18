@@ -11,7 +11,7 @@
     "session"
   ],
   "author": "Basim Hennawi <basim.a.hennawi@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cron": "^1.6.0",
     "puppeteer-firefox": "^0.4.2"

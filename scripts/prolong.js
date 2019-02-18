@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer-firefox');
 
 const awsConsoleUrl = 'https://console.aws.amazon.com/console/home';
-const mainDashboardUrl = 'https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#dashboards:name=MainDashboard';
 
 const accountId = process.env['ACCOUNT_ID'];
 const username = process.env['USER'];
 const password = process.env['PASSWORD'];
+const dashboardUrl = process.env['URL'] || 'https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#dashboards:name=MainDashboard';
 
 const accountIdSelector = '#resolving_input';
 const nextSelector = '#next_button';
@@ -57,7 +57,7 @@ module.exports = () => {
         await page.waitForSelector(servicesTabSelector);
         
         // Navigate directly to MainDashboard
-        await page.goto(mainDashboardUrl);
+        await page.goto(dashboardUrl);
         await page.waitForSelector(twelveHoursRangeSelector);
         await page.click(twelveHoursRangeSelector);
     })();
