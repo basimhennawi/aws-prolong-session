@@ -1,0 +1,19 @@
+{
+  "name": "aws-prolong-session",
+  "version": "1.0.0",
+  "description": "AWS prolong session",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "session"
+  ],
+  "author": "Basim Hennawi <basim.a.hennawi@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.6.0",
+    "puppeteer-firefox": "^0.4.2"
+  }
+}
