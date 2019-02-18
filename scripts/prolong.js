@@ -22,8 +22,7 @@ module.exports = () => {
             args: ['--start-maximized']
         });
         const page = await browser.newPage();
-        await page.setViewport({ width: 1366, height: 768, isLandscape: true });
-
+        await page.setViewport({ width: 1366, height: 768 });
         await page.goto(awsConsoleUrl);
 
         // Wait for account ID input
@@ -31,6 +30,7 @@ module.exports = () => {
 
         // Set account ID input
         await page.type(accountIdSelector, accountId);
+        await page.waitFor(2000);
 
         // Navigate from FIRST to LOGIN
         await Promise.all([
