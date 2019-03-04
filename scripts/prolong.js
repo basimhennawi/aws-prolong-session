@@ -22,9 +22,9 @@ module.exports = () => {
             executablePath: '/usr/bin/chromium-browser',
             args: ['--start-fullscreen']
         });
-        
+
         const page = await browser.newPage();
-        await page.setViewport({ width: 1366, height: 768 });
+        await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(awsConsoleUrl);
 
         // Wait for account ID input
@@ -33,7 +33,6 @@ module.exports = () => {
         // Set account ID input
         await page.click(accountIdSelector);
         await page.type(accountId);
-        await page.waitFor(2000);
 
         // Navigate from FIRST to LOGIN
         await Promise.all([
