@@ -20,7 +20,7 @@ module.exports = () => {
         const browser = await puppeteer.launch({
             headless: false,
             executablePath: '/usr/bin/chromium-browser',
-            args: ['--start-maximized']
+            args: ['--start-fullscreen']
         });
         
         const page = await browser.newPage();
