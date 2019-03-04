@@ -72,6 +72,6 @@ module.exports = () => {
         await page.waitFor(1500);
         await page.click(autoRefreshSelector);
         await page.waitFor(1500);
-        await page.click(arrowSelector);
+        await page.click(dropdownMenuSelector);
     })();
 };
