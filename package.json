@@ -14,6 +14,6 @@
   "license": "MIT",
   "dependencies": {
     "cron": "^1.6.0",
-    "puppeteer-firefox": "^0.4.2"
+    "puppeteer": "^0.10.0"
   }
 }

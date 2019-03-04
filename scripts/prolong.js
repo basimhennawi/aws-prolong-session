@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-firefox');
+const puppeteer = require('puppeteer');
 
 const awsConsoleUrl = 'https://console.aws.amazon.com/console/home';
 
@@ -19,8 +19,10 @@ module.exports = () => {
     (async () => {
         const browser = await puppeteer.launch({
             headless: false,
+            executablePath: '/usr/bin/chromium-browser',
             args: ['--start-maximized']
         });
+        
         const page = await browser.newPage();
         await page.setViewport({ width: 1366, height: 768 });
         await page.goto(awsConsoleUrl);
@@ -29,7 +31,8 @@ module.exports = () => {
         await page.waitForSelector(accountIdSelector);
 
         // Set account ID input
-        await page.type(accountIdSelector, accountId);
+        await page.click(accountIdSelector);
+        await page.type(accountId);
         await page.waitFor(2000);
 
         // Navigate from FIRST to LOGIN
@@ -45,8 +48,10 @@ module.exports = () => {
         ]);
 
         // Set login input
-        await page.type(usernameSelector, username);
-        await page.type(passwordSelector, password);
+        await page.click(usernameSelector);
+        await page.type(username);
+        await page.click(passwordSelector);
+        await page.type(password);
 
         // Navigate from LOGIN to HOME
         await Promise.all([
