@@ -15,8 +15,8 @@ const siginSelector = '#signin_button';
 const servicesTabSelector = '#nav-servicesMenu > div.nav-elt-label';
 const twelveHoursRangeSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.awsui.cwui.cwdb-daterange-picker > div > div > span > ul > li:nth-child(3) > a';
 const arrowSelector = '#gwt-debug-toggleButton';
-const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div';
-const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > ul > li:nth-child(1) > label > input[type="checkbox"]';
+const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div > span';
+const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwui-dropdown > ul > li:nth-child(1) > label > span';
 
 module.exports = () => {
     (async () => {
@@ -67,11 +67,13 @@ module.exports = () => {
         await page.goto(dashboardUrl);
         await page.waitForSelector(twelveHoursRangeSelector);
         await page.click(twelveHoursRangeSelector);
+        await page.waitForSelector(arrowSelector);
         await page.click(arrowSelector);
+        await page.waitForSelector(dropdownMenuSelector);
         await page.click(dropdownMenuSelector);
-        await page.waitFor(1500);
+        await page.waitForSelector(autoRefreshSelector);
         await page.click(autoRefreshSelector);
-        await page.waitFor(1500);
+        await page.waitFor(1000);
         await page.click(dropdownMenuSelector);
     })();
 };
