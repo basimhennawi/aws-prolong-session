@@ -65,15 +65,28 @@ module.exports = () => {
         
         // Navigate directly to MainDashboard
         await page.goto(dashboardUrl);
-        await page.waitForSelector(twelveHoursRangeSelector);
-        await page.click(twelveHoursRangeSelector);
-        await page.waitForSelector(arrowSelector);
-        await page.click(arrowSelector);
-        await page.waitForSelector(dropdownMenuSelector);
-        await page.click(dropdownMenuSelector);
-        await page.waitForSelector(autoRefreshSelector);
-        await page.click(autoRefreshSelector);
-        await page.waitFor(1000);
-        await page.click(dropdownMenuSelector);
+        
+        try {
+            await page.waitForSelector(arrowSelector);
+            await page.click(arrowSelector);
+        } catch (e) {
+            console.log("Left arrow element from the side menu not found.")
+        }
+        try {
+            await page.waitForSelector(dropdownMenuSelector);
+            await page.click(dropdownMenuSelector);
+            await page.waitForSelector(autoRefreshSelector);
+            await page.click(autoRefreshSelector);
+            await page.waitFor(1000);
+            await page.click(dropdownMenuSelector);
+        } catch (e) {
+            console.log("Dropdown menu from the top right menu not found.")
+        }
+        try {
+            await page.waitForSelector(twelveHoursRangeSelector);
+            await page.click(twelveHoursRangeSelector);
+        } catch (e) {
+            console.log("12h range element not found.")
+        }
     })();
 };
