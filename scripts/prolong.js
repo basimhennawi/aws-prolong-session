@@ -39,7 +39,7 @@ module.exports = () => {
 
         // Navigate from FIRST to LOGIN
         await Promise.all([
-            page.waitForNavigation({ timeout: 0, waitUntil: 'domcontentloaded' }),
+            page.waitForNavigation({ timeout: 60000 }),
             page.click(nextSelector),
         ]);
 
@@ -57,7 +57,7 @@ module.exports = () => {
 
         // Navigate from LOGIN to HOME
         await Promise.all([
-            page.waitForNavigation({ timeout: 0, waitUntil: 'domcontentloaded' }),
+            page.waitForNavigation({ timeout: 60000 }),
             page.click(siginSelector),
         ]);
 
