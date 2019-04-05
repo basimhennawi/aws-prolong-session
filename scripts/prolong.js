@@ -67,7 +67,19 @@ exports.open = () => {
         
         // Navigate directly to MainDashboard
         await page.goto(dashboardUrl);
-        
+
+        prolong();
+    })();
+};
+
+exports.prolong = () => {
+    (async () => {
+        try {
+            await page.reload();
+            console.log('Prolonged successfully for another 12 hours!');
+        } catch (e) {
+            console.log("Prolonging the session by reloading the page failed.")
+        }
         try {
             await page.waitForSelector(arrowSelector);
             await page.click(arrowSelector);
@@ -89,23 +101,6 @@ exports.open = () => {
             await page.click(twelveHoursRangeSelector);
         } catch (e) {
             console.log("12h range element not found.")
-        }
-        try {
-            await page.waitFor(5000);
-            await page.reload();
-        } catch (e) {
-            console.log("Prolonging the session by reloading the page failed.")
-        }
-    })();
-};
-
-exports.prolong = () => {
-    (async () => {
-        try {
-            await page.reload();
-            console.log('Prolonged successfully for another 12 hours!');
-        } catch (e) {
-            console.log("Prolonging the session by reloading the page failed.")
         }
     })();
 };
