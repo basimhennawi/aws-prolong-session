@@ -18,7 +18,9 @@ const arrowSelector = '#gwt-debug-toggleButton';
 const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div > span';
 const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwui-dropdown > ul > li:nth-child(1) > label > span';
 
-module.exports = () => {
+const page = null;
+
+exports.open = () => {
     (async () => {
         const browser = await puppeteer.launch({
             headless: false,
@@ -26,7 +28,7 @@ module.exports = () => {
             args: ['--start-fullscreen']
         });
 
-        const page = await browser.newPage();
+        page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(awsConsoleUrl);
 
@@ -91,6 +93,17 @@ module.exports = () => {
         try {
             await page.waitFor(5000);
             await page.reload();
+        } catch (e) {
+            console.log("Prolonging the session by reloading the page failed.")
+        }
+    })();
+};
+
+exports.prolong = () => {
+    (async () => {
+        try {
+            await page.reload();
+            console.log('Prolonged successfully for another 12 hours!');
         } catch (e) {
             console.log("Prolonging the session by reloading the page failed.")
         }
