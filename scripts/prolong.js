@@ -88,5 +88,11 @@ module.exports = () => {
         } catch (e) {
             console.log("12h range element not found.")
         }
+        try {
+            await page.waitFor(5000);
+            await page.reload();
+        } catch (e) {
+            console.log("Prolonging the session by reloading the page failed.")
+        }
     })();
 };
