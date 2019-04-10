@@ -18,6 +18,8 @@ const arrowSelector = '#gwt-debug-toggleButton';
 const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div > span';
 const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwui-dropdown > ul > li:nth-child(1) > label > span';
 
+let page;
+
 exports.open = async () => {
     const browser = await puppeteer.launch({
         headless: false,
@@ -65,20 +67,6 @@ exports.open = async () => {
     // Navigate directly to MainDashboard
     await page.goto(dashboardUrl);
 
-    return page;
-};
-
-let page;
-exports.prolong = async (_page) => {
-    // Set page globally on first time (ugly i know)
-    if (_page) page = _page;
-
-    try {
-        await page.reload();
-        console.log('Prolonged successfully for another hour!');
-    } catch (e) {
-        console.log("Prolonging the session by reloading the page failed.")
-    }
     try {
         await page.waitForSelector(arrowSelector);
         await page.click(arrowSelector);
@@ -100,5 +88,20 @@ exports.prolong = async (_page) => {
         await page.click(twelveHoursRangeSelector);
     } catch (e) {
         console.log("12h range element not found.")
+    }
+};
+
+exports.prolong = async () => {
+    try {
+        await page.reload();
+        await page.waitForSelector(dropdownMenuSelector);
+        console.log('Refreshed successfully!');
+    } catch (e) {
+        console.log("Prolonging the session by reloading the page failed!");
+        await page.close();
+        await browser.close();
+        console.log("Reopening new session...!");
+        await open();
+        console.log('Prolonged successfully!');
     }
 };
