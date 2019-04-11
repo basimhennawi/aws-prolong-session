@@ -18,10 +18,10 @@ const arrowSelector = '#gwt-debug-toggleButton';
 const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div > span';
 const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwui-dropdown > ul > li:nth-child(1) > label > span';
 
-let page;
+let page, browser;
 
 exports.open = async () => {
-    const browser = await puppeteer.launch({
+    browser = await puppeteer.launch({
         headless: false,
         executablePath: '/usr/bin/chromium-browser',
         args: ['--start-fullscreen']
