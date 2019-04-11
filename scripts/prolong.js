@@ -17,6 +17,7 @@ const twelveHoursRangeSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > di
 const arrowSelector = '#gwt-debug-toggleButton';
 const dropdownMenuSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div > div > span';
 const autoRefreshSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwui-dropdown > ul > li:nth-child(1) > label > span';
+const autoRefreshCheckedSelector = '#dashboard > div.cwdb-dashboard.cwdb-page > div.cwdb-toolbar > div.cwdb-refresh-controls.btn-group > div.cwdb-refresh-indicator';
 
 let page, browser;
 
@@ -82,8 +83,15 @@ exports.prolong = async () => {
         try {
             await page.waitForSelector(dropdownMenuSelector);
             await page.click(dropdownMenuSelector);
-            await page.waitForSelector(autoRefreshSelector);
-            await page.click(autoRefreshSelector);
+            
+            if (await page.$(autoRefreshCheckedSelector) !== null) {
+                console.log('"Auto refresh" is already checked.')
+            } else {
+                await page.waitForSelector(autoRefreshSelector);
+                await page.click(autoRefreshSelector);
+                console.log('Checking "Auto refresh".')
+            }
+            
             await page.waitFor(1000);
             await page.click(dropdownMenuSelector);
         } catch (e) {
