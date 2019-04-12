@@ -109,7 +109,7 @@ exports.prolong = async () => {
         await page.close();
         await browser.close();
         console.log("Reopening new session...!");
-        await open();
+        await this.open();
         console.log('Prolonged successfully!');
     }
 };
